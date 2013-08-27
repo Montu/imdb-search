@@ -3,8 +3,7 @@ require 'open-uri'
 require './movie.rb'
 require './movies_list.rb'
 class Imdb
-	BASE_IMDB_ADDR = "http://www.imdb.com"
-
+  BASE_IMDB_ADDR = "http://www.imdb.com"  
 	def initialize max_enteries
 		@max_enteries = max_enteries + 1
 		@movies_list = MoviesList.new
@@ -14,18 +13,18 @@ class Imdb
 
 	def generate_db
 		puts "Started database generation"
-	    im_website = Nokogiri::HTML open (BASE_IMDB_ADDR + "/chart/top")
-	    puts BASE_IMDB_ADDR + "/chart/top"
+    im_website = Nokogiri::HTML open (BASE_IMDB_ADDR + "/chart/top")
+    puts BASE_IMDB_ADDR + "/chart/top"
 	    im_website.css("div#main table a")[2..@max_enteries].each do |element|
-	    	#@db_title << element.text
-      	#@db_casts << get_casts(element['href'])
-      	new_movie = Movie.new(element.text, get_casts(element['href']))
-      	@movies_list.append new_movie
-      end
+    	#@db_title << element.text
+    	#@db_casts << get_casts(element['href'])
+    	new_movie = Movie.new(element.text, get_casts(element['href']))
+    	@movies_list.append new_movie
     end
-    puts "Finished database generation"
+  end
+  puts "Finished database generation"
 
-    def get_casts var_addr
+  def get_casts var_addr
     # puts "Finding for #{BASE_IMDB_ADDR + var_addr}"
     cast_website = Nokogiri::HTML open (BASE_IMDB_ADDR + var_addr)
 
@@ -58,8 +57,9 @@ class Imdb
   	puts "Started Search for movies by #{cast_name}"
   	movie_found = @movies_list.search_by_cast cast_name
     if movie_found
-  	puts "Movie(s) having this person in cast: "
-  	puts movie_found.title
+      puts "Movie(s) having this person in cast: "
+    	puts movie_found
+    end
   end
 end
 
@@ -76,9 +76,9 @@ while true  do
   repl_input = $stdin.gets.chomp
   case repl_input
     when "end"
-    break
+      break
     else
-    imdb.search_movie_by_cast_modular repl_input    
+      imdb.search_movie_by_cast_modular repl_input    
   end
 end
 
