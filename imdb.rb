@@ -17,11 +17,11 @@ class Imdb
 	    im_website = Nokogiri::HTML open (BASE_IMDB_ADDR + "/chart/top")
 	    puts BASE_IMDB_ADDR + "/chart/top"
 	    im_website.css("div#main table a")[2..@max_enteries].each do |element|
-	    	@db_title << element.text
-        	@db_casts << get_casts(element['href'])
-        	new_movie = Movie.new(element.text, get_casts(element['href']))
-        	@movies_list.append new_movie
-        end
+	    	#@db_title << element.text
+      	#@db_casts << get_casts(element['href'])
+      	new_movie = Movie.new(element.text, get_casts(element['href']))
+      	@movies_list.append new_movie
+      end
     end
     puts "Finished database generation"
 
@@ -57,6 +57,7 @@ class Imdb
   def search_movie_by_cast_modular cast_name
   	puts "Started Search for movies by #{cast_name}"
   	movie_found = @movies_list.search_by_cast cast_name
+    if movie_found
   	puts "Movie(s) having this person in cast: "
   	puts movie_found.title
   end
@@ -77,7 +78,7 @@ while true  do
     when "end"
     break
     else
-    imdb.search_movie_by_cast(repl_input)    
+    imdb.search_movie_by_cast_modular repl_input    
   end
 end
 
