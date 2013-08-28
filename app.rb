@@ -17,7 +17,7 @@ while true  do
       break
     else
       puts "Movie(s) have this person in cast are: "
-      imdb.search_movie_by_cast_modular repl_input   
+      puts imdb.search_movie_by_cast repl_input   
       puts "Movie(s) search ended" 
   end
 end

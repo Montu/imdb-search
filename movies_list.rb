@@ -1,4 +1,5 @@
-class MoviesList 
+class MoviesList
+	attr_reader :movies_list
 	def initialize
 		@movies_list = []
 	end
