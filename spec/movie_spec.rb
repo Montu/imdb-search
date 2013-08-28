@@ -1,4 +1,4 @@
-require './movie.rb'
+require_relative './spec_helper.rb'
 
 describe Movie do
 	before(:each) do
