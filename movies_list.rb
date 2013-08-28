@@ -8,9 +8,10 @@ class MoviesList
 	end
 
 	def search_by_cast cast_name
+		result_of_cast_search = []
 		@movies_list.each do |movie|
-			return movie.name if movie.search_by_cast(cast_name)
+			result_of_cast_search << movie.name if movie.search_by_cast(cast_name)
 		end
-		return false
+		return result_of_cast_search
 	end
 end
